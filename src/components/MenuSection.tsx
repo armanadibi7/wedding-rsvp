@@ -78,6 +78,7 @@ const TEXT = {
 
 interface MenuSectionProps {
   lang: "en" | "fr";
+  content?: { en: { menuTitle: string; starter: string; mainCourse: string; or: string; dessertHeader: string; dessertLine: string; dishes: Record<string, { name: string; desc: string }> }; fr: { menuTitle: string; starter: string; mainCourse: string; or: string; dessertHeader: string; dessertLine: string; dishes: Record<string, { name: string; desc: string }> } };
 }
 
 function Divider() {
@@ -103,7 +104,7 @@ function DishBlock({ name, desc, delay }: { name: string; desc: string; delay: n
       <p
         style={{
           fontFamily: FONTS.dish,
-          fontSize: 11,
+          fontSize: 19,
           fontWeight: 400,
           color: COLOR,
           letterSpacing: "0.35em",
@@ -117,7 +118,7 @@ function DishBlock({ name, desc, delay }: { name: string; desc: string; delay: n
         <p
           style={{
             fontFamily: FONTS.body,
-            fontSize: 12,
+            fontSize: 16,
             fontWeight: 400,
             color: COLOR_LIGHT,
             lineHeight: 1.5,
@@ -138,7 +139,7 @@ function OrDivider({ text, delay }: { text: string; delay: number }) {
     <motion.p
       style={{
         fontFamily: FONTS.body,
-        fontSize: 15,
+        fontSize: 19,
         fontWeight: 400,
         fontStyle: "italic",
         color: "#C8A97E",
@@ -155,9 +156,15 @@ function OrDivider({ text, delay }: { text: string; delay: number }) {
   );
 }
 
-export default function MenuSection({ lang }: MenuSectionProps) {
+export default function MenuSection({ lang, content }: MenuSectionProps) {
   const t = TEXT[lang];
-  const d = t.dishes;
+  const menuTitle = content?.[lang]?.menuTitle || t.menuTitle;
+  const starter = content?.[lang]?.starter || t.starter;
+  const mainCourse = content?.[lang]?.mainCourse || t.mainCourse;
+  const orText = content?.[lang]?.or || t.or;
+  const dessertHeader = content?.[lang]?.dessertHeader || t.dessertHeader;
+  const dessertLine = content?.[lang]?.dessertLine || t.dessertLine;
+  const d = content?.[lang]?.dishes || t.dishes;
 
   return (
     <section
@@ -200,7 +207,7 @@ export default function MenuSection({ lang }: MenuSectionProps) {
               textUnderlineOffset: 6,
             }}
           >
-            {t.menuTitle}
+            {menuTitle}
           </p>
           <svg width="12" height="12" viewBox="0 0 20 20" fill="none" style={{ marginLeft: -10 }}>
             <path d="M10 2L12 8H18L13 12L15 18L10 14L5 18L7 12L2 8H8Z" stroke="#000000" strokeWidth="0.5" fill="none" />
@@ -211,7 +218,7 @@ export default function MenuSection({ lang }: MenuSectionProps) {
         <motion.p
           style={{
             fontFamily: "'Great Vibes', cursive",
-            fontSize: 24,
+            fontSize: 28,
             color: "#C8A97E",
             letterSpacing: "0.05em",
             marginTop: 40,
@@ -222,7 +229,7 @@ export default function MenuSection({ lang }: MenuSectionProps) {
           viewport={{ once: true }}
           transition={{ duration: 0.7, delay: 0.1 }}
         >
-          {t.starter}
+          {starter}
         </motion.p>
 
         <DishBlock name={d.fattoush.name} desc={d.fattoush.desc} delay={0.2} />
@@ -233,7 +240,7 @@ export default function MenuSection({ lang }: MenuSectionProps) {
         <motion.p
           style={{
             fontFamily: "'Great Vibes', cursive",
-            fontSize: 24,
+            fontSize: 28,
             color: "#C8A97E",
             letterSpacing: "0.05em",
             paddingBottom: 6,
@@ -243,15 +250,15 @@ export default function MenuSection({ lang }: MenuSectionProps) {
           viewport={{ once: true }}
           transition={{ duration: 0.7, delay: 0.3 }}
         >
-          {t.mainCourse}
+          {mainCourse}
         </motion.p>
 
         <DishBlock name={d.chicken.name} desc={d.chicken.desc} delay={0.35} />
-        <OrDivider text={t.or} delay={0.4} />
+        <OrDivider text={orText} delay={0.4} />
         <DishBlock name={d.salmon.name} desc={d.salmon.desc} delay={0.45} />
-        <OrDivider text={t.or} delay={0.5} />
+        <OrDivider text={orText} delay={0.5} />
         <DishBlock name={d.filet.name} desc={d.filet.desc} delay={0.55} />
-        <OrDivider text={t.or} delay={0.6} />
+        <OrDivider text={orText} delay={0.6} />
         <DishBlock name={d.risotto.name} desc={d.risotto.desc} delay={0.65} />
 
         <Divider />
@@ -260,7 +267,7 @@ export default function MenuSection({ lang }: MenuSectionProps) {
         <motion.p
           style={{
             fontFamily: "'Great Vibes', cursive",
-            fontSize: 24,
+            fontSize: 28,
             color: "#C8A97E",
             letterSpacing: "0.05em",
             paddingBottom: 6,
@@ -270,13 +277,13 @@ export default function MenuSection({ lang }: MenuSectionProps) {
           viewport={{ once: true }}
           transition={{ duration: 0.7, delay: 0.68 }}
         >
-          {t.dessertHeader}
+          {dessertHeader}
         </motion.p>
 
         <motion.p
           style={{
             fontFamily: FONTS.body,
-            fontSize: 10,
+            fontSize: 14,
             fontWeight: 400,
             fontStyle: "italic",
             color: COLOR,
@@ -287,13 +294,13 @@ export default function MenuSection({ lang }: MenuSectionProps) {
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.7 }}
         >
-          {t.dessertLine}
+          {dessertLine}
         </motion.p>
       </div>
 
       {/* BOX 3: Divider */}
       <div style={{ flexShrink: 0, display: "flex", flexDirection: "column", alignItems: "center", position: "relative", zIndex: 10, marginTop: 30 }}>
-        <img src="/divider-nobg.png" alt="" style={{ width: "60vw", maxWidth: 300, height: "auto", objectFit: "contain", pointerEvents: "none", marginTop: -60 }} />
+        <img src="/divider-nobg.png" alt="" style={{ width: "60vw", maxWidth: 300, height: "auto", objectFit: "contain", pointerEvents: "none", marginTop: -60, filter: "sepia(40%) hue-rotate(-10deg) saturate(80%) brightness(95%)" }} />
       </div>
       <ScrollDown targetId="section-rsvp" lang={lang} />
     </section>

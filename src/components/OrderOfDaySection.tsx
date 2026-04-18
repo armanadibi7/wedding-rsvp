@@ -25,10 +25,15 @@ const TEXT = {
   },
 };
 
-interface OrderOfDaySectionProps { lang: "en" | "fr"; }
+interface OrderOfDaySectionProps {
+  lang: "en" | "fr";
+  content?: { en: { header: string; items: { time: string; title: string; desc: string }[] }; fr: { header: string; items: { time: string; title: string; desc: string }[] } };
+}
 
-export default function OrderOfDaySection({ lang }: OrderOfDaySectionProps) {
+export default function OrderOfDaySection({ lang, content }: OrderOfDaySectionProps) {
   const t = TEXT[lang];
+  const header = content?.[lang]?.header || t.header;
+  const items = content?.[lang]?.items || t.items;
 
   return (
     <section style={{ ...sectionBase, justifyContent: "space-between", padding: 0, overflow: "hidden" }}>
@@ -53,12 +58,12 @@ export default function OrderOfDaySection({ lang }: OrderOfDaySectionProps) {
           {/* Header (top of box 2) */}
           <motion.p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: r(22, 25), fontWeight: 400, color: "#000000", letterSpacing: "0.5em", textTransform: "uppercase", textDecoration: "underline", textDecorationColor: "#C8A97E", textUnderlineOffset: 6 }}
             initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }}>
-            {t.header}
+            {header}
           </motion.p>
 
           {/* Timeline items (equally spaced) */}
-          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "space-evenly", flex: 1, width: "100%" }}>
-            {t.items.map((item, i) => (
+          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "space-evenly", flex: 1, width: "100%", marginTop: 40 }}>
+            {items.map((item, i) => (
               <motion.div key={i} style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
                 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
                 transition={{ duration: 0.7, delay: 0.3 + i * 0.15 }}>
@@ -67,7 +72,7 @@ export default function OrderOfDaySection({ lang }: OrderOfDaySectionProps) {
 
                 <div style={{ width: r(4, 6), height: r(4, 6), borderRadius: "50%", background: "#000000", opacity: 0.6, marginBottom: r(3, 6) }} />
 
-                <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: r(8, 11), fontWeight: 500, color: "#000000", letterSpacing: "0.2em", textTransform: "uppercase", paddingBottom: r(1, 2) }}>
+                <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: r(8, 11), fontWeight: 500, color: "#000000", letterSpacing: "0.2em", textTransform: "uppercase", paddingBottom: r(6, 10) }}>
                   {item.time}
                 </p>
 
@@ -87,7 +92,7 @@ export default function OrderOfDaySection({ lang }: OrderOfDaySectionProps) {
 
         {/* BOX 3: Divider */}
         <div style={{ flexShrink: 0, display: "flex", flexDirection: "column", alignItems: "center" }}>
-          <img src="/divider-nobg.png" alt="" style={{ width: "60vw", maxWidth: 300, height: "auto", objectFit: "contain", pointerEvents: "none", marginTop: -60 }} />
+          <img src="/divider-nobg.png" alt="" style={{ width: "60vw", maxWidth: 300, height: "auto", objectFit: "contain", pointerEvents: "none", marginTop: -60, filter: "sepia(40%) hue-rotate(-10deg) saturate(80%) brightness(95%)" }} />
         </div>
       </div>
 

@@ -155,6 +155,7 @@ const textareaStyle: React.CSSProperties = {
 interface RSVPSectionProps {
   lang: "en" | "fr";
   guest?: GuestData;
+  content?: { en: { header: string; subtitle: string; willAttend: string; yes: string; no: string }; fr: { header: string; subtitle: string; willAttend: string; yes: string; no: string } };
 }
 
 function RadioGroup({
@@ -237,8 +238,13 @@ function MealRadioRow({
   );
 }
 
-export default function RSVPSection({ lang, guest: guestProp }: RSVPSectionProps) {
+export default function RSVPSection({ lang, guest: guestProp, content }: RSVPSectionProps) {
   const t = TEXT[lang];
+  const header = content?.[lang]?.header || t.header;
+  const subtitle = content?.[lang]?.subtitle || t.subtitle;
+  const willAttend = content?.[lang]?.willAttend || t.willAttend;
+  const yesText = content?.[lang]?.yes || t.yes;
+  const noText = content?.[lang]?.no || t.no;
   const guest = guestProp || MOCK_GUEST;
 
   const [attending, setAttending] = useState<"" | "yes" | "no">("");
@@ -340,7 +346,7 @@ export default function RSVPSection({ lang, guest: guestProp }: RSVPSectionProps
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
         >
-          {t.header}
+          {header}
         </motion.p>
 
         {/* Subtitle */}
@@ -351,7 +357,7 @@ export default function RSVPSection({ lang, guest: guestProp }: RSVPSectionProps
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.1 }}
         >
-          {t.subtitle}
+          {subtitle}
         </motion.p>
 
         {/* Greeting */}
@@ -398,11 +404,11 @@ export default function RSVPSection({ lang, guest: guestProp }: RSVPSectionProps
                 animate={attending ? { y: -10 } : { y: 0 }}
                 transition={{ duration: 0.5, ease: "easeOut" }}
               >
-                <p style={{ ...labelStyle, marginBottom: 44 }}>{t.willAttend}</p>
+                <p style={{ ...labelStyle, marginBottom: 44 }}>{willAttend}</p>
                 <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 10, padding: "0 5vw", width: "100%", boxSizing: "border-box" }}>
                   {[
-                    { value: "yes", label: t.yes },
-                    { value: "no", label: t.no },
+                    { value: "yes", label: yesText },
+                    { value: "no", label: noText },
                   ].map((opt) => (
                     <button
                       key={opt.value}
@@ -624,7 +630,7 @@ export default function RSVPSection({ lang, guest: guestProp }: RSVPSectionProps
 
       {/* BOX 3: Divider */}
       <div style={{ flexShrink: 0, display: "flex", flexDirection: "column", alignItems: "center", position: "relative", zIndex: 10, marginTop: 30 }}>
-        <img src="/divider-nobg.png" alt="" style={{ width: "60vw", maxWidth: 300, height: "auto", objectFit: "contain", pointerEvents: "none", marginTop: -60 }} />
+        <img src="/divider-nobg.png" alt="" style={{ width: "60vw", maxWidth: 300, height: "auto", objectFit: "contain", pointerEvents: "none", marginTop: -60, filter: "sepia(40%) hue-rotate(-10deg) saturate(80%) brightness(95%)" }} />
       </div>
     </section>
   );

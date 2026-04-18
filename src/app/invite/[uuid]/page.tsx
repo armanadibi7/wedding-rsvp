@@ -12,12 +12,14 @@ import MenuSection from "@/components/MenuSection";
 import RSVPSection from "@/components/RSVPSection";
 import LanguageToggle from "@/components/LanguageToggle";
 import type { GuestData } from "@/components/RSVPSection";
+import type { SiteContent } from "@/lib/db";
 
 export default function InvitePage() {
   const params = useParams();
   const uuid = params.uuid as string;
 
   const [guest, setGuest] = useState<GuestData | null>(null);
+  const [content, setContent] = useState<SiteContent | null>(null);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(true);
   const [videoComplete, setVideoComplete] = useState(false);
@@ -26,14 +28,23 @@ export default function InvitePage() {
   useEffect(() => {
     async function load() {
       try {
-        const res = await fetch(`/api/guest?id=${uuid}`);
-        if (!res.ok) {
+        const [guestRes, contentRes] = await Promise.all([
+          fetch(`/api/guest?id=${uuid}`),
+          fetch("/api/content"),
+        ]);
+
+        if (!guestRes.ok) {
           setError(true);
           setLoading(false);
           return;
         }
-        const data = await res.json();
+        const data = await guestRes.json();
         setGuest(data);
+
+        const contentData = await contentRes.json();
+        if (contentData && Object.keys(contentData).length > 0) {
+          setContent(contentData);
+        }
 
         // Collect device info
         const screenSize = `${screen.width}x${screen.height}`;
@@ -115,25 +126,25 @@ export default function InvitePage() {
       <LanguageToggle lang={lang} onToggle={() => setLang(lang === "en" ? "fr" : "en")} />
 
       <div id="section-intro" style={{ scrollSnapAlign: "start" }}>
-        <IntroSection guestName={guest.greetingName} lang={lang} layout={DEFAULT_INTRO_LAYOUT} />
+        <IntroSection guestName={guest.greetingName} lang={lang} layout={DEFAULT_INTRO_LAYOUT} content={content?.intro} />
       </div>
       <div id="section-location" style={{ scrollSnapAlign: "start" }}>
-        <LocationSection lang={lang} />
+        <LocationSection lang={lang} content={content?.location} />
       </div>
       <div id="section-dresscode" style={{ scrollSnapAlign: "start" }}>
-        <DressCodeSection lang={lang} />
+        <DressCodeSection lang={lang} content={content?.dresscode} />
       </div>
       <div id="section-countdown" style={{ scrollSnapAlign: "start" }}>
-        <CountdownSection lang={lang} />
+        <CountdownSection lang={lang} content={content?.countdown} />
       </div>
       <div id="section-order" style={{ scrollSnapAlign: "start" }}>
-        <OrderOfDaySection lang={lang} />
+        <OrderOfDaySection lang={lang} content={content?.orderOfDay} />
       </div>
       <div id="section-menu" style={{ scrollSnapAlign: "start" }}>
-        <MenuSection lang={lang} />
+        <MenuSection lang={lang} content={content?.menu} />
       </div>
       <div id="section-rsvp" style={{ scrollSnapAlign: "start" }}>
-        <RSVPSection lang={lang} guest={guest} />
+        <RSVPSection lang={lang} guest={guest} content={content?.rsvp} />
       </div>
     </main>
   );

@@ -12,23 +12,32 @@ const TEXT = {
   fr: { header: "Compte à rebours", subtitle: "Vers le jour le plus spécial de notre vie", days: "Jours", hours: "Heures", minutes: "Minutes", seconds: "Secondes" },
 };
 
-interface CountdownSectionProps { lang: "en" | "fr"; }
+interface CountdownSectionProps {
+  lang: "en" | "fr";
+  content?: { en: { header: string; subtitle: string; days: string; hours: string; minutes: string; seconds: string }; fr: { header: string; subtitle: string; days: string; hours: string; minutes: string; seconds: string } };
+}
 
 function getTimeLeft() {
   const diff = Math.max(0, WEDDING_DATE - Date.now());
   return { days: Math.floor(diff / 86400000), hours: Math.floor((diff / 3600000) % 24), minutes: Math.floor((diff / 60000) % 60), seconds: Math.floor((diff / 1000) % 60) };
 }
 
-export default function CountdownSection({ lang }: CountdownSectionProps) {
+export default function CountdownSection({ lang, content }: CountdownSectionProps) {
   const t = TEXT[lang];
+  const header = content?.[lang]?.header || t.header;
+  const subtitle = content?.[lang]?.subtitle || t.subtitle;
+  const daysLabel = content?.[lang]?.days || t.days;
+  const hoursLabel = content?.[lang]?.hours || t.hours;
+  const minutesLabel = content?.[lang]?.minutes || t.minutes;
+  const secondsLabel = content?.[lang]?.seconds || t.seconds;
   const [time, setTime] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => { setMounted(true); setTime(getTimeLeft()); const i = setInterval(() => setTime(getTimeLeft()), 1000); return () => clearInterval(i); }, []);
 
   const units = [
-    { value: time.days, label: t.days }, { value: time.hours, label: t.hours },
-    { value: time.minutes, label: t.minutes }, { value: time.seconds, label: t.seconds },
+    { value: time.days, label: daysLabel }, { value: time.hours, label: hoursLabel },
+    { value: time.minutes, label: minutesLabel }, { value: time.seconds, label: secondsLabel },
   ];
 
   return (
@@ -45,13 +54,13 @@ export default function CountdownSection({ lang }: CountdownSectionProps) {
         {/* Header */}
         <motion.p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: r(22, 25), fontWeight: 400, color: "#000000", letterSpacing: "0.5em", textTransform: "uppercase", textDecoration: "underline", textDecorationColor: "#C8A97E", textUnderlineOffset: 6, paddingBottom: r(8, 16) }}
           initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, delay: 0.2 }}>
-          {t.header}
+          {header}
         </motion.p>
 
         {/* Subtitle */}
         <motion.p style={{ fontFamily: "'Great Vibes', cursive", fontSize: r(33, 47), color: "#C8A97E", letterSpacing: "0.05em", paddingBottom: r(110, 160) }}
           initial={{ opacity: 0, y: 15 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, delay: 0.3 }}>
-          {t.subtitle}
+          {subtitle}
         </motion.p>
 
         {/* Counter */}
@@ -75,7 +84,7 @@ export default function CountdownSection({ lang }: CountdownSectionProps) {
         </motion.div>
       </div>
 
-      <img src="/divider-nobg.png" alt="" style={{ position: "absolute", bottom: "6vh", left: "50%", transform: "translateX(-50%)", width: "60vw", maxWidth: 300, height: "auto", objectFit: "contain", zIndex: 10, pointerEvents: "none" }} />
+      <img src="/divider-nobg.png" alt="" style={{ position: "absolute", bottom: "6vh", left: "50%", transform: "translateX(-50%)", width: "60vw", maxWidth: 300, height: "auto", objectFit: "contain", zIndex: 10, pointerEvents: "none", filter: "sepia(40%) hue-rotate(-10deg) saturate(80%) brightness(95%)" }} />
       <ScrollDown targetId="section-order" lang={lang} />
     </section>
   );

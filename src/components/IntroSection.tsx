@@ -20,10 +20,18 @@ const TEXT = {
   },
 };
 
+interface IntroContentProps {
+  en: { greeting: string; headline: string; saveTheDate: string; date: string; };
+  fr: { greeting: string; headline: string; saveTheDate: string; date: string; };
+  namesLine1: string;
+  namesLine2: string;
+}
+
 interface IntroSectionProps {
   guestName?: string;
   lang: "en" | "fr";
   layout?: DraggableItem[];
+  content?: IntroContentProps;
 }
 
 export const DEFAULT_INTRO_LAYOUT: DraggableItem[] = [
@@ -35,8 +43,15 @@ export const DEFAULT_INTRO_LAYOUT: DraggableItem[] = [
   { id: "scroll", label: "Scroll Down", x: 0, y: 0, width: 200, scale: 1 },
 ];
 
-export default function IntroSection({ guestName, lang }: IntroSectionProps) {
-  const t = TEXT[lang];
+export default function IntroSection({ guestName, lang, content }: IntroSectionProps) {
+  const defaults = TEXT[lang];
+  const c = content?.[lang];
+  const greeting = c?.greeting ? c.greeting.replace("{name}", guestName || "") : defaults.greeting(guestName || "");
+  const headline = c?.headline || defaults.headline;
+  const saveTheDate = c?.saveTheDate || defaults.saveTheDate;
+  const date = c?.date || defaults.date;
+  const name1 = content?.namesLine1 || "Sarah";
+  const name2 = content?.namesLine2 || "Arman";
 
   return (
     <section suppressHydrationWarning style={{ ...sectionBase, justifyContent: "space-between", padding: 0, overflow: "hidden" }}>
@@ -48,17 +63,13 @@ export default function IntroSection({ guestName, lang }: IntroSectionProps) {
         width: "100%", height: "100%", padding: "1vh 5vw 2vh", position: "relative", zIndex: 10, boxSizing: "border-box",
       }}>
 
-        {/* BOX 1: Logo */}
-        <div style={{ flexShrink: 0, display: "flex", flexDirection: "column", alignItems: "center" }}>
-          <motion.div initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1, delay: 0.2 }}>
-            <img src="/logo3.png" alt="Wedding Logo" style={{ width: "auto", height: "clamp(140px, 22vh, 220px)", objectFit: "contain", marginBottom: -30 }} />
-          </motion.div>
-        </div>
+        {/* Video animation overlay */}
+        {/* Video background */}
 
-        {/* BOX 2: Greeting (top) → Content (space-evenly) → Save the Date (bottom) */}
-        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", flex: 1, width: "100%", padding: "10px 0" }}>
+        {/* BOX 2: All content equally spaced */}
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "space-evenly", textAlign: "center", flex: 1, width: "100%", padding: "0", zIndex: 10 }}>
 
-          {/* Greeting (top of box 2, no padding) */}
+          {/* Dear Guest */}
           {guestName && (
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -66,27 +77,24 @@ export default function IntroSection({ guestName, lang }: IntroSectionProps) {
               transition={{ duration: 0.8, delay: 0.5 }}
             >
               <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: 20, fontWeight: 400, color: "#000000", letterSpacing: "0.15em", textAlign: "center" }}>
-                {t.greeting(guestName)}
+                {greeting}
               </p>
             </motion.div>
           )}
 
-          {/* Middle content (equally spaced) */}
-          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "space-evenly", flex: 1, width: "100%" }}>
-
-            {/* Names */}
+          {/* Names + Headline grouped */}
+          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 6 }}>
             <motion.div
               style={{ display: "flex", alignItems: "center", justifyContent: "center", marginLeft: "-0.1em" }}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.8 }}
             >
-              <span style={{ fontFamily: "'Great Vibes', cursive", fontSize: "clamp(40px, 7vw, 54px)", color: "#C8A97E", letterSpacing: "0.1em" }}>Sarah</span>
+              <span style={{ fontFamily: "'Great Vibes', cursive", fontSize: "clamp(40px, 7vw, 54px)", color: "#C8A97E", letterSpacing: "0.1em" }}>{name1}</span>
               <span style={{ fontFamily: "'Great Vibes', cursive", fontSize: "clamp(40px, 7vw, 54px)", color: "#C8A97E", letterSpacing: "0.1em", margin: "0 8px" }}>&</span>
-              <span style={{ fontFamily: "'Great Vibes', cursive", fontSize: "clamp(40px, 7vw, 54px)", color: "#C8A97E", letterSpacing: "0.1em" }}>Arman</span>
+              <span style={{ fontFamily: "'Great Vibes', cursive", fontSize: "clamp(40px, 7vw, 54px)", color: "#C8A97E", letterSpacing: "0.1em" }}>{name2}</span>
             </motion.div>
 
-            {/* Headline */}
             <motion.div
               style={{ textAlign: "center" }}
               initial={{ opacity: 0, y: 30 }}
@@ -94,12 +102,12 @@ export default function IntroSection({ guestName, lang }: IntroSectionProps) {
               transition={{ duration: 1, delay: 1.4 }}
             >
               <p style={{ fontFamily: "'Montserrat', sans-serif", fontWeight: 400, fontSize: 20, color: "#000000", letterSpacing: "0.15em" }}>
-                {t.headline}
+                {headline}
               </p>
             </motion.div>
           </div>
 
-          {/* Save the Date + Date (bottom of box 2, no padding) */}
+          {/* Save the Date + Date */}
           <motion.div
             style={{ textAlign: "center" }}
             initial={{ opacity: 0 }}
@@ -107,17 +115,17 @@ export default function IntroSection({ guestName, lang }: IntroSectionProps) {
             transition={{ duration: 0.8, delay: 2 }}
           >
             <p style={{ fontFamily: "'Montserrat', sans-serif", fontWeight: 400, fontSize: 20, color: "#000000", letterSpacing: "0.15em" }}>
-              {t.saveTheDate}
+              {saveTheDate}
             </p>
             <p style={{ fontFamily: "'Montserrat', sans-serif", fontWeight: 500, fontSize: 16, color: "#C8A97E", letterSpacing: "0.15em", marginTop: 4, textDecoration: "underline", textDecorationColor: "#C8A97E", textUnderlineOffset: 4 }}>
-              {t.date}
+              {date}
             </p>
           </motion.div>
         </div>
 
         {/* BOX 3: Divider */}
         <div style={{ flexShrink: 0, display: "flex", flexDirection: "column", alignItems: "center" }}>
-          <img src="/divider-nobg.png" alt="" style={{ width: "60vw", maxWidth: 300, height: "auto", objectFit: "contain", pointerEvents: "none", marginTop: -60 }} />
+          <img src="/divider-nobg.png" alt="" style={{ width: "60vw", maxWidth: 300, height: "auto", objectFit: "contain", pointerEvents: "none", marginTop: -60, filter: "sepia(40%) hue-rotate(-10deg) saturate(80%) brightness(95%)" }} />
         </div>
       </div>
 
