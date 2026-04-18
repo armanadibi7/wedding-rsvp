@@ -117,34 +117,53 @@ export default function InvitePage() {
     );
   }
 
-  // Full wedding site
+  // Full wedding site — continuous scroll with fixed background
   return (
-    <main style={{ height: "100vh", overflowY: "auto", scrollSnapType: "y mandatory" }}>
+    <main style={{ position: "relative", minHeight: "100vh" }}>
+      {/* Fixed background that stays in place */}
+      <div style={{
+        position: "fixed", inset: 0, zIndex: 0,
+        background: "#f2f2f2",
+      }}>
+        <div style={{
+          position: "absolute", inset: 0,
+          backgroundImage: "url('/bg5.jpg')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          backgroundAttachment: "fixed",
+          opacity: 0.5,
+        }} />
+      </div>
+
       {!videoComplete && typeof window !== "undefined" && (
         <EnvelopeIntro onComplete={() => setVideoComplete(true)} />
       )}
       <LanguageToggle lang={lang} onToggle={() => setLang(lang === "en" ? "fr" : "en")} />
 
-      <div id="section-intro" style={{ scrollSnapAlign: "start" }}>
-        <IntroSection guestName={guest.greetingName} lang={lang} layout={DEFAULT_INTRO_LAYOUT} content={content?.intro} />
-      </div>
-      <div id="section-location" style={{ scrollSnapAlign: "start" }}>
-        <LocationSection lang={lang} content={content?.location} />
-      </div>
-      <div id="section-dresscode" style={{ scrollSnapAlign: "start" }}>
-        <DressCodeSection lang={lang} content={content?.dresscode} />
-      </div>
-      <div id="section-countdown" style={{ scrollSnapAlign: "start" }}>
-        <CountdownSection lang={lang} content={content?.countdown} />
-      </div>
-      <div id="section-order" style={{ scrollSnapAlign: "start" }}>
-        <OrderOfDaySection lang={lang} content={content?.orderOfDay} />
-      </div>
-      <div id="section-menu" style={{ scrollSnapAlign: "start" }}>
-        <MenuSection lang={lang} content={content?.menu} />
-      </div>
-      <div id="section-rsvp" style={{ scrollSnapAlign: "start" }}>
-        <RSVPSection lang={lang} guest={guest} content={content?.rsvp} />
+      {/* Scrollable content over fixed background */}
+      <div style={{ position: "relative", zIndex: 1 }}>
+        <div id="section-intro">
+          <IntroSection guestName={guest.greetingName} lang={lang} layout={DEFAULT_INTRO_LAYOUT} content={content?.intro} />
+        </div>
+        <div id="section-location">
+          <LocationSection lang={lang} content={content?.location} />
+        </div>
+        <div id="section-dresscode">
+          <DressCodeSection lang={lang} content={content?.dresscode} />
+        </div>
+        <div id="section-countdown">
+          <CountdownSection lang={lang} content={content?.countdown} />
+        </div>
+        <div id="section-order">
+          <OrderOfDaySection lang={lang} content={content?.orderOfDay} />
+        </div>
+        <div id="section-menu">
+          <MenuSection lang={lang} content={content?.menu} />
+        </div>
+        <div id="section-rsvp">
+          <RSVPSection lang={lang} guest={guest} content={content?.rsvp} />
+        </div>
       </div>
     </main>
   );

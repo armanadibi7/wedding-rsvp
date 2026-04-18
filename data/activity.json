@@ -1183,5 +1183,53 @@
     "language": "fr-CA",
     "platform": "iPhone",
     "timestamp": "2026-04-17T05:07:33.323Z"
+  },
+  {
+    "guestId": "51697a82-1ef5-403d-a1c6-d8556a864e95",
+    "event": "link_opened",
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36",
+    "ip": "127.0.0.1",
+    "fingerprint": "8siow4",
+    "device": "Desktop",
+    "screenSize": "1440x900",
+    "language": "en-US",
+    "platform": "MacIntel",
+    "timestamp": "2026-04-18T22:15:49.747Z"
+  },
+  {
+    "guestId": "7f319004-29a6-4827-a96a-9e06e763fc3a",
+    "event": "link_opened",
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36",
+    "ip": "127.0.0.1",
+    "fingerprint": "8siow4",
+    "device": "Desktop",
+    "screenSize": "1440x900",
+    "language": "en-US",
+    "platform": "MacIntel",
+    "timestamp": "2026-04-18T22:18:26.739Z"
+  },
+  {
+    "guestId": "7f319004-29a6-4827-a96a-9e06e763fc3a",
+    "event": "link_opened",
+    "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Mobile/15E148 Safari/604.1",
+    "ip": "127.0.0.1",
+    "fingerprint": "-kxmt2m",
+    "device": "Mobile",
+    "screenSize": "430x932",
+    "language": "en-US",
+    "platform": "MacIntel",
+    "timestamp": "2026-04-18T22:20:09.723Z"
+  },
+  {
+    "guestId": "7f319004-29a6-4827-a96a-9e06e763fc3a",
+    "event": "link_opened",
+    "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Mobile/15E148 Safari/604.1",
+    "ip": "127.0.0.1",
+    "fingerprint": "-kxmt2m",
+    "device": "Mobile",
+    "screenSize": "430x932",
+    "language": "en-US",
+    "platform": "MacIntel",
+    "timestamp": "2026-04-18T22:29:28.275Z"
   }
 ]

@@ -44,7 +44,6 @@ export default function LocationSection({ lang, content }: LocationSectionProps)
 
   return (
     <section suppressHydrationWarning style={{ ...sectionBase, justifyContent: "space-between", padding: 0, overflow: "hidden" }}>
-      <div suppressHydrationWarning style={{ position: "absolute", inset: 0, zIndex: 0, backgroundImage: "url('/bg5.jpg')", backgroundSize: "100% 100%", backgroundPosition: "center", backgroundRepeat: "no-repeat", opacity: 0.4, pointerEvents: "none" }} />
       <div style={topBorder} />
 
       <div style={{
@@ -107,13 +106,13 @@ export default function LocationSection({ lang, content }: LocationSectionProps)
           <motion.div style={{ display: "flex", alignItems: "center", gap: r(8, 16), justifyContent: "center" }}
             initial={{ opacity: 0, y: 15 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, delay: 0.8 }}>
             <a href={mapsUrl} target="_blank" rel="noopener noreferrer"
-              style={{ fontFamily: "'Montserrat', sans-serif", fontSize: r(12, 14), fontWeight: 700, letterSpacing: "0.1em", color: "#C8A97E", background: "transparent", border: "1px solid #000000", borderRadius: 999, padding: `${r(10, 14)} ${r(14, 20)}`, width: 170, maxWidth: "42vw", display: "flex", alignItems: "center", justifyContent: "center", gap: 8, textDecoration: "none", overflow: "hidden", whiteSpace: "nowrap" }}>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C8A97E" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" /><circle cx="12" cy="10" r="3" /></svg>
+              style={{ fontFamily: "'Montserrat', sans-serif", fontSize: r(12, 14), fontWeight: 700, letterSpacing: "0.1em", color: "#ffffff", background: "#C8A97E", border: "none", borderRadius: 999, padding: `${r(10, 14)} ${r(14, 20)}`, width: 170, maxWidth: "42vw", display: "flex", alignItems: "center", justifyContent: "center", gap: 8, textDecoration: "none", overflow: "hidden", whiteSpace: "nowrap" }}>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" /><circle cx="12" cy="10" r="3" /></svg>
               <span style={{ fontSize: `min(${r(10, 12)}, 3vw)` }}>{directions}</span>
             </a>
             <a href={calendarUrl} target="_blank" rel="noopener noreferrer"
-              style={{ fontFamily: "'Montserrat', sans-serif", fontSize: r(12, 14), fontWeight: 700, letterSpacing: "0.1em", color: "#C8A97E", background: "transparent", border: "1px solid #000000", borderRadius: 999, padding: `${r(10, 14)} ${r(14, 20)}`, width: 170, maxWidth: "42vw", display: "flex", alignItems: "center", justifyContent: "center", gap: 8, textDecoration: "none", overflow: "hidden", whiteSpace: "nowrap" }}>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C8A97E" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" /><line x1="16" y1="2" x2="16" y2="6" /><line x1="8" y1="2" x2="8" y2="6" /><line x1="3" y1="10" x2="21" y2="10" /></svg>
+              style={{ fontFamily: "'Montserrat', sans-serif", fontSize: r(12, 14), fontWeight: 700, letterSpacing: "0.1em", color: "#ffffff", background: "#C8A97E", border: "none", borderRadius: 999, padding: `${r(10, 14)} ${r(14, 20)}`, width: 170, maxWidth: "42vw", display: "flex", alignItems: "center", justifyContent: "center", gap: 8, textDecoration: "none", overflow: "hidden", whiteSpace: "nowrap" }}>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" /><line x1="16" y1="2" x2="16" y2="6" /><line x1="8" y1="2" x2="8" y2="6" /><line x1="3" y1="10" x2="21" y2="10" /></svg>
               <span style={{ fontSize: `min(${r(10, 12)}, 3vw)` }}>{addCalendar}</span>
             </a>
           </motion.div>
@@ -125,7 +124,6 @@ export default function LocationSection({ lang, content }: LocationSectionProps)
         </div>
       </div>
 
-      <ScrollDown targetId="section-dresscode" lang={lang} />
     </section>
   );
 }

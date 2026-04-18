@@ -224,9 +224,9 @@ function MealRadioRow({
             fontSize: 16,
             fontWeight: 400,
             letterSpacing: "0.1em",
-            color: value === opt.value ? "#ffffff" : "#000000",
-            background: value === opt.value ? "#C8A97E" : "transparent",
-            border: `1px solid ${value === opt.value ? "#C8A97E" : "#000000"}`,
+            color: "#ffffff",
+            background: value === opt.value ? "#a08860" : "#C8A97E",
+            border: "none",
             borderRadius: 999,
             padding: "10px 18px",
           }}
@@ -309,9 +309,8 @@ export default function RSVPSection({ lang, guest: guestProp, content }: RSVPSec
 
   return (
     <section
-      style={{ position: "relative", display: "flex", flexDirection: "column", alignItems: "center", overflow: "hidden", padding: "1vh 5vw 2vh", background: "#f2f2f2", minHeight: "100vh", boxSizing: "border-box" }}
+      style={{ position: "relative", display: "flex", flexDirection: "column", alignItems: "center", overflow: "hidden", padding: "1vh 5vw 2vh", background: "transparent", minHeight: "100vh", boxSizing: "border-box" }}
     >
-      <div suppressHydrationWarning style={{ position: "absolute", inset: 0, zIndex: 0, backgroundImage: "url('/bg5.jpg')", backgroundSize: "100% 100%", backgroundPosition: "center", backgroundRepeat: "no-repeat", opacity: 0.4, pointerEvents: "none" }} />
       <div style={{ position: "absolute", top: 0, left: "50%", transform: "translateX(-50%)", width: 96, height: 1, background: "linear-gradient(90deg, transparent, #9f9f9d, transparent)", opacity: 0.3 }} />
 
       {/* BOX 1: Logo */}
@@ -420,9 +419,9 @@ export default function RSVPSection({ lang, guest: guestProp, content }: RSVPSec
                         fontSize: "clamp(9px, 2.5vw, 14px)",
                         fontWeight: 400,
                         letterSpacing: "0.05em",
-                        color: attending === opt.value ? "#ffffff" : "#C8A97E",
-                        background: attending === opt.value ? "#C8A97E" : "transparent",
-                        border: `1px solid #000000`,
+                        color: "#ffffff",
+                        background: "#C8A97E",
+                        border: "none",
                         borderRadius: 999,
                         padding: "12px 12px",
                         whiteSpace: "nowrap",

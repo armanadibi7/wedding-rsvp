@@ -55,9 +55,6 @@ export default function IntroSection({ guestName, lang, content }: IntroSectionP
 
   return (
     <section suppressHydrationWarning style={{ ...sectionBase, justifyContent: "space-between", padding: 0, overflow: "hidden" }}>
-      {/* Background image */}
-      <div suppressHydrationWarning style={{ position: "absolute", inset: 0, zIndex: 0, backgroundImage: "url('/bg5.jpg')", backgroundSize: "100% 100%", backgroundPosition: "center", backgroundRepeat: "no-repeat", opacity: 0.4, pointerEvents: "none" }} />
-
       <div style={{
         display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "space-between",
         width: "100%", height: "100%", padding: "1vh 5vw 2vh", position: "relative", zIndex: 10, boxSizing: "border-box",
@@ -129,7 +126,6 @@ export default function IntroSection({ guestName, lang, content }: IntroSectionP
         </div>
       </div>
 
-      <ScrollDown targetId="section-location" lang={lang} />
     </section>
   );
 }

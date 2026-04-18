@@ -25,7 +25,7 @@ export const sectionBase: React.CSSProperties = {
   justifyContent: "center",
   overflow: "hidden",
   padding: "5vh 6vw",
-  background: "#f2f2f2",
+  background: "transparent",
   boxSizing: "border-box",
 };
 

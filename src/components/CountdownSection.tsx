@@ -42,7 +42,6 @@ export default function CountdownSection({ lang, content }: CountdownSectionProp
 
   return (
     <section style={{ ...sectionBase, justifyContent: "flex-start", paddingTop: "1vh" }}>
-      <div suppressHydrationWarning style={{ position: "absolute", inset: 0, zIndex: 0, backgroundImage: "url('/bg5.jpg')", backgroundSize: "100% 100%", backgroundPosition: "center", backgroundRepeat: "no-repeat", opacity: 0.4, pointerEvents: "none" }} />
       <div style={topBorder} />
 
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", maxWidth: "85vw", width: "100%", position: "relative", zIndex: 10 }}>
@@ -85,7 +84,6 @@ export default function CountdownSection({ lang, content }: CountdownSectionProp
       </div>
 
       <img src="/divider-nobg.png" alt="" style={{ position: "absolute", bottom: "6vh", left: "50%", transform: "translateX(-50%)", width: "60vw", maxWidth: 300, height: "auto", objectFit: "contain", zIndex: 10, pointerEvents: "none", filter: "sepia(40%) hue-rotate(-10deg) saturate(80%) brightness(95%)" }} />
-      <ScrollDown targetId="section-order" lang={lang} />
     </section>
   );
 }

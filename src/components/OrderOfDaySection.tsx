@@ -37,7 +37,6 @@ export default function OrderOfDaySection({ lang, content }: OrderOfDaySectionPr
 
   return (
     <section style={{ ...sectionBase, justifyContent: "space-between", padding: 0, overflow: "hidden" }}>
-      <div suppressHydrationWarning style={{ position: "absolute", inset: 0, zIndex: 0, backgroundImage: "url('/bg5.jpg')", backgroundSize: "100% 100%", backgroundPosition: "center", backgroundRepeat: "no-repeat", opacity: 0.4, pointerEvents: "none" }} />
       <div style={topBorder} />
 
       <div style={{
@@ -96,7 +95,6 @@ export default function OrderOfDaySection({ lang, content }: OrderOfDaySectionPr
         </div>
       </div>
 
-      <ScrollDown targetId="section-menu" lang={lang} />
     </section>
   );
 }

@@ -168,9 +168,8 @@ export default function MenuSection({ lang, content }: MenuSectionProps) {
 
   return (
     <section
-      style={{ position: "relative", display: "flex", flexDirection: "column", alignItems: "center", overflow: "hidden", padding: "1vh 5vw 2vh", background: "#f2f2f2", minHeight: "100vh", boxSizing: "border-box" }}
+      style={{ position: "relative", display: "flex", flexDirection: "column", alignItems: "center", overflow: "hidden", padding: "1vh 5vw 2vh", background: "transparent", minHeight: "100vh", boxSizing: "border-box" }}
     >
-      <div suppressHydrationWarning style={{ position: "absolute", inset: 0, zIndex: 0, backgroundImage: "url('/bg5.jpg')", backgroundSize: "100% 100%", backgroundPosition: "center", backgroundRepeat: "no-repeat", opacity: 0.4, pointerEvents: "none" }} />
       <div style={{ position: "absolute", top: 0, left: "50%", transform: "translateX(-50%)", width: 96, height: 1, background: "linear-gradient(90deg, transparent, #9f9f9d, transparent)", opacity: 0.3 }} />
 
       {/* BOX 1: Logo */}
@@ -302,7 +301,6 @@ export default function MenuSection({ lang, content }: MenuSectionProps) {
       <div style={{ flexShrink: 0, display: "flex", flexDirection: "column", alignItems: "center", position: "relative", zIndex: 10, marginTop: 30 }}>
         <img src="/divider-nobg.png" alt="" style={{ width: "60vw", maxWidth: 300, height: "auto", objectFit: "contain", pointerEvents: "none", marginTop: -60, filter: "sepia(40%) hue-rotate(-10deg) saturate(80%) brightness(95%)" }} />
       </div>
-      <ScrollDown targetId="section-rsvp" lang={lang} />
     </section>
   );
 }
